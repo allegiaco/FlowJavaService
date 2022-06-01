@@ -3,8 +3,10 @@ package dao.emeraldcity.flow;
 import com.nftco.flow.sdk.FlowAccount;
 import com.nftco.flow.sdk.FlowAddress;
 import com.nftco.flow.sdk.FlowId;
-import com.nftco.flow.sdk.FlowTransactionResult;
 import dao.emeraldcity.flow.abstraction.FlowServiceAbstract;
+import dao.emeraldcity.flow.builders.Arguments;
+import dao.emeraldcity.flow.builders.ArgumentsBuilder;
+import dao.emeraldcity.flow.exceptions.TransactionException;
 import dao.emeraldcity.flow.implementation.FlowServiceImpl;
 import dao.emeraldcity.flow.model.User;
 import dao.emeraldcity.flow.model.enums.NetType;
@@ -20,8 +22,17 @@ public class Main {
         System.out.println(user.getUserFlowAddress().getBase16Value());
         System.out.println(user.getUserFlowAddress().getFormatted());
 
-        FlowServiceAbstract flowService = new FlowServiceImpl("b7bedcc776d6e7d5ae3162dfe988fa91ec170db33f436fa306aa19315899c75f", "0x0042e6f28d52f7d7", new ReusableBufferedReader(), NetType.MAINNET);
+        FlowServiceAbstract flowService = new FlowServiceImpl("b7bedcc776d6e7d5ae3162dfe988fa91ec170db33f436fa306aa19315899c75f", "0x0042e6f28d52f7d7", new ReusableBufferedReader(), NetType.TESTNET);
 
+        try {
+           FlowId flowId = flowService.prepareTransaction()
+                                      .addTransactionText("abc")
+                                      .addArgumentsList(new ArgumentsBuilder().argumentField("AddressField", "abc")
+                                                                              .build())
+                                      .sendTx();
+        } catch (TransactionException e) {
+            e.printStackTrace();
+        }
        /* FlowTransactionResult transactionResult = flowService.getTransactionResult(new FlowId("3a18d2d68df91f1fd21a43ec26dffce0c2b3a24629fc53c9ccace91d935c8c49"));
 
         var a = flowService.returnTransactionValues(transactionResult);*/
