@@ -24,6 +24,12 @@ public class User {
         this.userPrivateKey = userPrivateKey;
     }
 
+    public User (Builder builder) {
+        this.description = builder.description;
+        this.userFlowAddress = builder.userFlowAddress;
+        this.userPrivateKey = builder.userPrivateKey;
+    }
+
     public FlowAddress getUserFlowAddress() {
         return this.userFlowAddress;
     }
@@ -53,4 +59,35 @@ public class User {
     public int hashCode() {
         return Objects.hash(userFlowAddress, userPrivateKey);
     }
+
+    public static class Builder {
+
+        private String description;
+        private FlowAddress userFlowAddress;
+        private PrivateKey userPrivateKey;
+
+        public Builder() {
+
+        }
+
+        public Builder userFlowAddress(String userFlowAddress) {
+            this.userFlowAddress = new FlowAddress(userFlowAddress);
+            return this;
+        }
+
+        public Builder userPrivateKey(String userPrivateKey) {
+            this.userPrivateKey = Crypto.decodePrivateKey(userPrivateKey);
+            return this;
+        }
+
+        public Builder userDescription(String userDescription) {
+            this.description = userDescription;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
+    }
 }
+

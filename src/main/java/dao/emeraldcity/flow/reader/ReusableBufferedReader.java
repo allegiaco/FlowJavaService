@@ -93,9 +93,9 @@ public class ReusableBufferedReader extends Reader {
 
         this.source.close();
 
-        for (int i = 0; i < nChars; i++) {
+/*        for (int i = 0; i < nChars; i++) {
             buffer[i] = '\u0000';
-        }
+        }*/
     }
 
     public String readLine() throws IOException {

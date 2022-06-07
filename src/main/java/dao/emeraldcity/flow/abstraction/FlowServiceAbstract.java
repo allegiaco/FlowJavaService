@@ -1,5 +1,6 @@
 package dao.emeraldcity.flow.abstraction;
 
+import com.google.protobuf.ByteString;
 import com.nftco.flow.sdk.*;
 import com.nftco.flow.sdk.crypto.Crypto;
 import com.nftco.flow.sdk.crypto.PrivateKey;
@@ -14,25 +15,25 @@ import dao.emeraldcity.flow.model.enums.NetType;
 import dao.emeraldcity.flow.reader.ReusableBufferedReader;
 import dao.emeraldcity.flow.utils.FlowServiceUtils;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.io.*;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class FlowServiceAbstract {
 
     protected FlowServiceUtils flowServiceUtils;
-    protected ReusableBufferedReader reader;
     protected FlowTransactionObject flowTransactionObject;
     protected List<User> users = new ArrayList<>();
+    protected ReusableBufferedReader reusableBufferedReader;
 
     public FlowServiceAbstract(String payerPrivateKey, String payerFlowAddress, ReusableBufferedReader rbr, NetType netType) {
         this.flowServiceUtils = FlowServiceUtilsHandler.getFlowServiceUtils(netType);
-        this.reader = rbr;
+        this.reusableBufferedReader = rbr;
+        users.add(new User(payerFlowAddress, payerPrivateKey));
+    }
+
+    public FlowServiceAbstract(String payerPrivateKey, String payerFlowAddress, NetType netType) {
+        this.flowServiceUtils = FlowServiceUtilsHandler.getFlowServiceUtils(netType);
         users.add(new User(payerFlowAddress, payerPrivateKey));
     }
 
@@ -44,8 +45,40 @@ public abstract class FlowServiceAbstract {
         return false;
     }
 
-    public abstract FlowScriptResponse executeScript(String script, List<FlowArgument> argumentsList,
-                                            Map<String, String> scriptChanges);
+    public Optional<User> getUser(FlowAddress userFlowAddress) {
+
+        return this.users.stream()
+                .filter(user -> user.getUserFlowAddress().equals(userFlowAddress))
+                .findFirst();
+    }
+
+    public boolean checkIfUserIsPresent(User user) {
+
+        return this.users.stream()
+                .filter(u -> u.equals(user))
+                .findFirst().isPresent();
+    }
+
+    public abstract FlowScriptResponse executeScriptWithChanges(String script, List<FlowArgument> argumentsList,
+                                                                Map<String, String> scriptChanges);
+
+    public FlowScriptResponse executeScript(String script, List<FlowArgument> argumentsList) {
+
+        Map<String, String> scriptChanges = new HashMap<>();
+
+        FlowScript flowScript = null;
+        try {
+            flowScript = new FlowScript(loadScript(script, scriptChanges));
+        } catch (ImportsException e) {
+            e.printStackTrace();
+        }
+        List<ByteString> arList = argumentsList.stream()
+                .map(flowArgument -> flowArgument.getByteStringValue())
+                .collect(Collectors.toList());
+
+        return this.flowServiceUtils.accessAPI().executeScriptAtLatestBlock(flowScript, arList);
+
+    }
 
     public abstract FlowAccount getAccount(FlowAddress address);
 
@@ -147,27 +180,64 @@ public abstract class FlowServiceAbstract {
         File scriptFile = new File(scriptPath);
         StringBuilder sb = new StringBuilder();
 
-        try {
-            reader.setSource(new FileReader(scriptFile));
-            List<String> imports = new ArrayList<>();
-            List<String> code = new ArrayList<>();
-            String line;
-            int numberOfImports = scriptChanges.size();
+        List<String> imports = new ArrayList<>();
+        List<String> code = new ArrayList<>();
+        String line;
+        int numberOfImports = scriptChanges.size();
 
-            // READ THE WHOLE CONTRACT AND DIVIDE IMPORTS FROM CODE
+        if(this.reusableBufferedReader != null) {
 
-            do {
-                line = reader.readLine();
-                if (line != null) {
-                    if(line.contains("import") && line.contains("from")) {
-                        imports.add(line);
-                    } else {
-                        code.add(line);
+            System.out.println("I'm using the reusable reader");
+            try {
+                reusableBufferedReader.setSource(new FileReader(scriptFile));
+                do {
+                    line = reusableBufferedReader.readLine();
+                    if (line != null) {
+                        if(line.contains("import") && line.contains("from")) {
+                            imports.add(line);
+                        } else {
+                            code.add(line);
+                        }
                     }
+
+                } while (line != null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }  finally {
+                try {
+                    reusableBufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+            }
+        } else {
 
-            } while (line != null);
+            System.out.println("I'm using the standard buffered reader");
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader( new FileReader(scriptFile));
+                do {
+                    line = reader.readLine();
+                    if (line != null) {
+                        if(line.contains("import") && line.contains("from")) {
+                            imports.add(line);
+                        } else {
+                            code.add(line);
+                        }
+                    }
 
+                } while (line != null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }  finally {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
 
             // CHECK IF THE IMPORTS CORRESPOND
             if (numberOfImports != 0) {
@@ -197,15 +267,7 @@ public abstract class FlowServiceAbstract {
             }
             code.forEach(co -> sb.append(co).append("\n"));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         return sb.toString().getBytes();
     }
+
 }

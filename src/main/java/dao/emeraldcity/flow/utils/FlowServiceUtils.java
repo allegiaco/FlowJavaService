@@ -5,7 +5,7 @@ import dao.emeraldcity.flow.abstraction.FlowServiceUtilsAbstract;
 
 import java.math.BigDecimal;
 
-public class FlowServiceUtils extends FlowServiceUtilsAbstract {
+public final class FlowServiceUtils extends FlowServiceUtilsAbstract {
 
     private FlowAccessApi accessAPI;
 
