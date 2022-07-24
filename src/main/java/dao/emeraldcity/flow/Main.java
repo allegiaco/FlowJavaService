@@ -69,6 +69,11 @@ public class Main {
                                       .addTransactionText("abc")
                                       .addArgumentsList(new ArgumentsBuilder().argumentField("AddressField", "abc")
                                                                               .build())
+                                      .addScriptChanges(new HashMap<>())
+                                      .addProposerAddress(new FlowAddress("Ox098..."))
+                                      .addPayerAddress(new FlowAddress("Ox098..."))
+                                      .addAuthorizers(List.of(new FlowAddress("0x786...")))
+                                      .setSkipSeal(true)
                                       .sendTx();
         } catch (TransactionException e) {
             e.printStackTrace();

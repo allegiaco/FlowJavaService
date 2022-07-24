@@ -2,7 +2,6 @@ package dao.emeraldcity.flow.abstraction;
 
 import com.nftco.flow.sdk.*;
 
-import java.math.BigDecimal;
 
 public abstract class FlowServiceUtilsAbstract {
 
