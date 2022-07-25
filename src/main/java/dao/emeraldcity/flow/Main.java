@@ -44,6 +44,7 @@ public class Main {
         String script = "./src/get_collection_ids.cdc";
 
         String nonFungibleTokenPath = "\"../../contracts/NonFungibleToken.cdc\"";
+
         String kittyItemsPath = "\"../../contracts/KittyItems.cdc\"";
         String nonFungibleTokenAddress = "631e88ae7f1d7c20";
         String kittyItemsAddress = "0042e6f28d52f7d7";
