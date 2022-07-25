@@ -2,15 +2,18 @@ package dao.emeraldcity.flow;
 
 import com.nftco.flow.sdk.FlowAddress;
 import com.nftco.flow.sdk.FlowId;
+import com.nftco.flow.sdk.cadence.ArrayField;
 import com.nftco.flow.sdk.cadence.Field;
 import dao.emeraldcity.flow.abstraction.FlowServiceAbstract;
 import dao.emeraldcity.flow.builders.ArgumentsBuilder;
+import dao.emeraldcity.flow.exceptions.NotANumberFieldClassException;
 import dao.emeraldcity.flow.exceptions.TransactionException;
 import dao.emeraldcity.flow.implementation.FlowService;
 import dao.emeraldcity.flow.model.User;
 import dao.emeraldcity.flow.model.enums.NetType;
 import dao.emeraldcity.flow.reader.ReusableBufferedReader;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +58,7 @@ public class Main {
         String account = "0042e6f28d52f7d7";
 
         var argumentsList = new ArgumentsBuilder()
-                .argumentField("AddressField", account)
+                .addressField(account)
                 .build();
 
         var response = flowService.executeScriptWithChanges(script, argumentsList, scriptChanges);
@@ -68,7 +71,8 @@ public class Main {
         try {
            FlowId flowId = flowService.prepareTransaction()
                                       .addTransactionText("abc")
-                                      .addArgumentsList(new ArgumentsBuilder().argumentField("AddressField", "abc")
+                                      .addArgumentsList(new ArgumentsBuilder().addressField("abc")
+                                              .numberField("UInt64NumberField", "268")
                                                                               .build())
                                       .addScriptChanges(new HashMap<>())
                                       .addProposerAddress(new FlowAddress("Ox098..."))
@@ -78,7 +82,20 @@ public class Main {
                                       .sendTx();
         } catch (TransactionException e) {
             e.printStackTrace();
+        } catch (NotANumberFieldClassException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
+
 
        /* FlowTransactionResult transactionResult = flowService.getTransactionResult(new FlowId("3a18d2d68df91f1fd21a43ec26dffce0c2b3a24629fc53c9ccace91d935c8c49"));
 

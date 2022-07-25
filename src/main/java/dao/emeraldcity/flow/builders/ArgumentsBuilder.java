@@ -1,8 +1,9 @@
 package dao.emeraldcity.flow.builders;
 
 import com.nftco.flow.sdk.FlowArgument;
-import com.nftco.flow.sdk.cadence.Field;
+import com.nftco.flow.sdk.cadence.*;
 import dao.emeraldcity.flow.exceptions.ArgumentNotFoundException;
+import dao.emeraldcity.flow.exceptions.NotANumberFieldClassException;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
 
 import java.lang.reflect.Constructor;
@@ -18,29 +19,96 @@ public class ArgumentsBuilder {
         this.listArguments = new ArrayList<>();
     }
 
-    private <T> T castObject(Class<T> clazz, Object object) {
-        return (T) object;
+    public ArgumentsBuilder voidField() {
+        listArguments.add(new FlowArgument(new VoidField()));
+        return this;
     }
 
-    public ArgumentsBuilder argumentField(String className, Object argument) {
+    public ArgumentsBuilder optionalField(Field<?> field) {
+        this.listArguments.add(new FlowArgument(new OptionalField(field)));
+        return this;
+    }
 
-        try {
-            Class<?> clazz = Class.forName("com.nftco.flow.sdk.cadence." + className);
-            Constructor<?> cnstr = ConstructorUtils
-                    .getMatchingAccessibleConstructor(clazz, argument.getClass());
-            if(cnstr == null) {
-                throw new ArgumentNotFoundException("Not possible to create " + className);
-            } else {
-                var obj = cnstr.newInstance(argument);
-                var castedArgument = (Field<?>) castObject(clazz, obj);
-                listArguments.add(new FlowArgument(castedArgument));
-            }
+    public ArgumentsBuilder booleanField (boolean bool) {
+        this.listArguments.add(new FlowArgument(new BooleanField(bool)));
+        return this;
+    }
 
-        } catch (ClassNotFoundException | SecurityException | InstantiationException
-                | IllegalAccessException | IllegalArgumentException | InvocationTargetException | ArgumentNotFoundException e) {
-            e.printStackTrace();;
+    public ArgumentsBuilder stringField (String str) {
+        this.listArguments.add(new FlowArgument(new StringField(str)));
+        return this;
+    }
+
+    public ArgumentsBuilder addressField (String addressField) {
+        this.listArguments.add(new FlowArgument(new AddressField(addressField)));
+        return this;
+    }
+
+    public ArgumentsBuilder numberField (String numberField, String numberValue) throws NotANumberFieldClassException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+
+        if(!numberField.contains("Number") || numberField.equals("NumberField")) {
+                throw new NotANumberFieldClassException("Class inserted is not a NumberField");
         }
 
+            Class<?> clazz = Class.forName("com.nftco.flow.sdk.cadence." + numberField);
+            var constructor = clazz.getConstructor(String.class);
+            var number = (Field<?>) constructor.newInstance(numberValue);
+            this.listArguments.add(new FlowArgument(number));
+            return this;
+        }
+
+    public ArgumentsBuilder arrayField(Field[] fields) {
+        listArguments.add(new FlowArgument(new ArrayField(fields)));
+        return this;
+    }
+
+    public ArgumentsBuilder dictionaryField(DictionaryFieldEntry[] dictionaryFieldEntries) {
+        this.listArguments.add(new FlowArgument(new DictionaryField(dictionaryFieldEntries)));
+        return this;
+    }
+
+    public ArgumentsBuilder pathField (PathValue pathValue) {
+        this.listArguments.add(new FlowArgument(new PathField(pathValue)));
+        return this;
+    }
+
+    public ArgumentsBuilder capabilityField (CapabilityValue capabilityValue) {
+        this.listArguments.add(new FlowArgument(new CapabilityField(capabilityValue)));
+        return this;
+    }
+
+    public ArgumentsBuilder compositeField (String type, CompositeValue compositeValue) {
+        this.listArguments.add(new FlowArgument(new CompositeField(type, compositeValue)));
+        return this;
+    }
+
+    public ArgumentsBuilder structField (CompositeValue compositeValue) {
+        this.listArguments.add(new FlowArgument(new StructField(compositeValue)));
+        return this;
+    }
+
+    public ArgumentsBuilder resourceField (CompositeValue compositeValue) {
+        this.listArguments.add(new FlowArgument(new ResourceField(compositeValue)));
+        return this;
+    }
+
+    public ArgumentsBuilder eventField (CompositeValue compositeValue) {
+        this.listArguments.add(new FlowArgument(new EventField(compositeValue)));
+        return this;
+    }
+
+    public ArgumentsBuilder contractField (CompositeValue compositeValue) {
+        this.listArguments.add(new FlowArgument(new ContractField(compositeValue)));
+        return this;
+    }
+
+    public ArgumentsBuilder enumField (CompositeValue compositeValue) {
+        this.listArguments.add(new FlowArgument(new EnumField(compositeValue)));
+        return this;
+    }
+
+    public ArgumentsBuilder typeField (TypeValue typeValue) {
+        this.listArguments.add(new FlowArgument(new TypeField(typeValue)));
         return this;
     }
 
