@@ -9,7 +9,7 @@ import java.util.Map;
 public class FlowTransactionObject {
 
     private String transaction;
-    private java.util.List<FlowArgument> argumentsList;
+    private List<FlowArgument> argumentsList;
     private Map<String, String> scriptChanges;
     private FlowAddress proposerAddress;
     private List<FlowAddress> authorizers;

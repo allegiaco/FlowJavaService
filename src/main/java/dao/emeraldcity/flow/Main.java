@@ -2,18 +2,15 @@ package dao.emeraldcity.flow;
 
 import com.nftco.flow.sdk.FlowAddress;
 import com.nftco.flow.sdk.FlowId;
-import com.nftco.flow.sdk.cadence.ArrayField;
 import com.nftco.flow.sdk.cadence.Field;
-import dao.emeraldcity.flow.abstraction.FlowServiceAbstract;
 import dao.emeraldcity.flow.builders.ArgumentsBuilder;
-import dao.emeraldcity.flow.exceptions.NotANumberFieldClassException;
+import dao.emeraldcity.flow.exceptions.ArgumentNotFoundException;
 import dao.emeraldcity.flow.exceptions.TransactionException;
 import dao.emeraldcity.flow.implementation.FlowService;
 import dao.emeraldcity.flow.model.User;
 import dao.emeraldcity.flow.model.enums.NetType;
 import dao.emeraldcity.flow.reader.ReusableBufferedReader;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,19 +77,7 @@ public class Main {
                                       .addAuthorizers(List.of(new FlowAddress("0x786...")))
                                       .setSkipSeal(true)
                                       .sendTx();
-        } catch (TransactionException e) {
-            e.printStackTrace();
-        } catch (NotANumberFieldClassException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (TransactionException | ArgumentNotFoundException e) {
             e.printStackTrace();
         }
 

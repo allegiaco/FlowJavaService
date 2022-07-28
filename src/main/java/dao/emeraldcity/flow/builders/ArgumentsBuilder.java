@@ -4,9 +4,6 @@ import com.nftco.flow.sdk.FlowArgument;
 import com.nftco.flow.sdk.cadence.*;
 import dao.emeraldcity.flow.exceptions.ArgumentNotFoundException;
 import dao.emeraldcity.flow.exceptions.NotANumberFieldClassException;
-import org.apache.commons.lang3.reflect.ConstructorUtils;
-
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +41,23 @@ public class ArgumentsBuilder {
         return this;
     }
 
-    public ArgumentsBuilder numberField (String numberField, String numberValue) throws NotANumberFieldClassException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public ArgumentsBuilder numberField (String numberField, String numberValue) throws ArgumentNotFoundException {
 
-        if(!numberField.contains("Number") || numberField.equals("NumberField")) {
+        try {
+
+            if(!numberField.contains("Number") || numberField.equals("NumberField")) {
                 throw new NotANumberFieldClassException("Class inserted is not a NumberField");
-        }
+            }
 
             Class<?> clazz = Class.forName("com.nftco.flow.sdk.cadence." + numberField);
             var constructor = clazz.getConstructor(String.class);
             var number = (Field<?>) constructor.newInstance(numberValue);
             this.listArguments.add(new FlowArgument(number));
             return this;
+
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException | NotANumberFieldClassException e) {
+            throw new ArgumentNotFoundException(e.getMessage());
+        }
         }
 
     public ArgumentsBuilder arrayField(Field[] fields) {

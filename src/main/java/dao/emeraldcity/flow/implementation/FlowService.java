@@ -83,6 +83,7 @@ public final class FlowService extends FlowServiceAbstract {
             return txID;
 
         this.flowServiceUtils.waitForSeal(txID);
+
         return txID;
     }
 
