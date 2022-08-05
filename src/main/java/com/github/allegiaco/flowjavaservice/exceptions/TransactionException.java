@@ -1,4 +1,4 @@
-package com.javaservice.flow.exceptions;
+package com.github.allegiaco.flowjavaservice.exceptions;
 
 public class TransactionException extends Exception {
 

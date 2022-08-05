@@ -1,18 +1,18 @@
-package com.javaservice.flow.implementation;
+package com.github.allegiaco.flowjavaservice.implementation;
 
+import com.github.allegiaco.flowjavaservice.abstraction.FlowServiceAbstract;
+import com.github.allegiaco.flowjavaservice.abstraction.FlowServiceUtilsAbstract;
+import com.github.allegiaco.flowjavaservice.builders.FlowTransactionBuilder;
+import com.github.allegiaco.flowjavaservice.builders.ProposalKeyBuilder;
+import com.github.allegiaco.flowjavaservice.model.User;
+import com.github.allegiaco.flowjavaservice.model.enums.NetType;
+import com.github.allegiaco.flowjavaservice.reader.ReusableBufferedReader;
 import com.google.protobuf.ByteString;
-import com.javaservice.flow.abstraction.FlowServiceAbstract;
-import com.javaservice.flow.abstraction.FlowServiceUtilsAbstract;
-import com.javaservice.flow.builders.FlowTransactionBuilder;
-import com.javaservice.flow.builders.ProposalKeyBuilder;
-import com.javaservice.flow.model.User;
-import com.javaservice.flow.model.enums.NetType;
-import com.javaservice.flow.reader.ReusableBufferedReader;
 import com.nftco.flow.sdk.*;
 import com.nftco.flow.sdk.crypto.Crypto;
 import com.nftco.flow.sdk.crypto.PrivateKey;
-import com.javaservice.flow.exceptions.ImportsException;
-import com.javaservice.flow.exceptions.TransactionException;
+import com.github.allegiaco.flowjavaservice.exceptions.ImportsException;
+import com.github.allegiaco.flowjavaservice.exceptions.TransactionException;
 
 import java.math.BigDecimal;
 import java.util.*;

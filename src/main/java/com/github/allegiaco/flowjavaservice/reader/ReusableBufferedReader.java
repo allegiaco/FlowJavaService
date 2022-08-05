@@ -1,4 +1,4 @@
-package com.javaservice.flow.reader;
+package com.github.allegiaco.flowjavaservice.reader;
 
 
 import java.io.IOException;

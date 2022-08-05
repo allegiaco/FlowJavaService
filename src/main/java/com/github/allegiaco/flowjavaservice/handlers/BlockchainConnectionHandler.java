@@ -1,4 +1,4 @@
-package com.javaservice.flow.handlers;
+package com.github.allegiaco.flowjavaservice.handlers;
 
 import com.nftco.flow.sdk.Flow;
 import com.nftco.flow.sdk.FlowAccessApi;

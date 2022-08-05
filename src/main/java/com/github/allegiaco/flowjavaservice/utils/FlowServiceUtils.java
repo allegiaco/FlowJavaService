@@ -1,7 +1,7 @@
-package com.javaservice.flow.utils;
+package com.github.allegiaco.flowjavaservice.utils;
 
 import com.nftco.flow.sdk.*;
-import com.javaservice.flow.abstraction.FlowServiceUtilsAbstract;
+import com.github.allegiaco.flowjavaservice.abstraction.FlowServiceUtilsAbstract;
 
 import java.math.BigDecimal;
 
