@@ -1,15 +1,17 @@
-package dao.emeraldcity.flow;
+package com.javaservice.flow;
 
 import com.nftco.flow.sdk.FlowAddress;
 import com.nftco.flow.sdk.FlowId;
 import com.nftco.flow.sdk.cadence.Field;
-import dao.emeraldcity.flow.builders.ArgumentsBuilder;
-import dao.emeraldcity.flow.exceptions.ArgumentNotFoundException;
-import dao.emeraldcity.flow.exceptions.TransactionException;
-import dao.emeraldcity.flow.implementation.FlowService;
-import dao.emeraldcity.flow.model.User;
-import dao.emeraldcity.flow.model.enums.NetType;
-import dao.emeraldcity.flow.reader.ReusableBufferedReader;
+import com.javaservice.flow.builders.ArgumentsBuilder;
+import com.javaservice.flow.exceptions.ArgumentNotFoundException;
+import com.javaservice.flow.exceptions.TransactionException;
+import com.javaservice.flow.handlers.BlockchainConnectionHandler;
+import com.javaservice.flow.implementation.FlowService;
+import com.javaservice.flow.model.User;
+import com.javaservice.flow.model.enums.NetType;
+import com.javaservice.flow.reader.ReusableBufferedReader;
+import com.javaservice.flow.utils.FlowServiceUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -100,6 +102,10 @@ public class Main {
             });
         });*/
 
+        // * in the case you want to build your own FlowServiceUtils, first you create it and then inject it into the FlowService. If you want the builders you should create the pattern *
+        var fgh = new FlowServiceUtils(BlockchainConnectionHandler.getTestnetConnection());
+
+        FlowService flowService2 = new FlowService("7d5fd2648ff31d16826774fe95b026e32309642679f84ca6606ffe308ec43f93", "0xd34e6d685806bcd1", null, fgh);
 
     }
 }

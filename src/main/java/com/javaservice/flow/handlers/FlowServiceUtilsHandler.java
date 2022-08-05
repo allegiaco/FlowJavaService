@@ -1,7 +1,7 @@
-package dao.emeraldcity.flow.handlers;
+package com.javaservice.flow.handlers;
 
-import dao.emeraldcity.flow.model.enums.NetType;
-import dao.emeraldcity.flow.utils.FlowServiceUtils;
+import com.javaservice.flow.utils.FlowServiceUtils;
+import com.javaservice.flow.model.enums.NetType;
 
 public class FlowServiceUtilsHandler {
 

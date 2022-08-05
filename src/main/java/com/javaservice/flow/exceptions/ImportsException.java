@@ -1,4 +1,4 @@
-package dao.emeraldcity.flow.exceptions;
+package com.javaservice.flow.exceptions;
 
 public class ImportsException extends Exception {
 

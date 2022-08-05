@@ -1,4 +1,4 @@
-package dao.emeraldcity.flow.abstraction;
+package com.javaservice.flow.abstraction;
 
 import com.nftco.flow.sdk.*;
 
@@ -10,8 +10,6 @@ public abstract class FlowServiceUtilsAbstract {
     public FlowServiceUtilsAbstract(FlowAccessApi accessAPI) {
         this.accessAPI = accessAPI;
     }
-
-
 
     public FlowAccessApi accessAPI() {
         return accessAPI;

@@ -1,4 +1,4 @@
-package dao.emeraldcity.flow.model;
+package com.javaservice.flow.model;
 
 import com.nftco.flow.sdk.FlowAddress;
 import com.nftco.flow.sdk.FlowArgument;

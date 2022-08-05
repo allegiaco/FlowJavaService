@@ -1,4 +1,4 @@
-package dao.emeraldcity.flow.model.enums;
+package com.javaservice.flow.model.enums;
 
 public enum NetType {
 

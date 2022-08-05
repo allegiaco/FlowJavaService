@@ -1,17 +1,18 @@
-package dao.emeraldcity.flow.implementation;
+package com.javaservice.flow.implementation;
 
 import com.google.protobuf.ByteString;
+import com.javaservice.flow.abstraction.FlowServiceAbstract;
+import com.javaservice.flow.abstraction.FlowServiceUtilsAbstract;
+import com.javaservice.flow.builders.FlowTransactionBuilder;
+import com.javaservice.flow.builders.ProposalKeyBuilder;
+import com.javaservice.flow.model.User;
+import com.javaservice.flow.model.enums.NetType;
+import com.javaservice.flow.reader.ReusableBufferedReader;
 import com.nftco.flow.sdk.*;
 import com.nftco.flow.sdk.crypto.Crypto;
 import com.nftco.flow.sdk.crypto.PrivateKey;
-import dao.emeraldcity.flow.abstraction.FlowServiceAbstract;
-import dao.emeraldcity.flow.builders.FlowTransactionBuilder;
-import dao.emeraldcity.flow.builders.ProposalKeyBuilder;
-import dao.emeraldcity.flow.exceptions.ImportsException;
-import dao.emeraldcity.flow.exceptions.TransactionException;
-import dao.emeraldcity.flow.model.enums.NetType;
-import dao.emeraldcity.flow.model.User;
-import dao.emeraldcity.flow.reader.ReusableBufferedReader;
+import com.javaservice.flow.exceptions.ImportsException;
+import com.javaservice.flow.exceptions.TransactionException;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -23,6 +24,10 @@ public final class FlowService extends FlowServiceAbstract {
 
     public FlowService(String payerPrivateKey, String payerFlowAddress, ReusableBufferedReader reader, NetType netType) {
         super(payerPrivateKey, payerFlowAddress, reader, netType);
+    }
+
+    public FlowService(String payerPrivateKey, String payerFlowAddress, ReusableBufferedReader reader, FlowServiceUtilsAbstract flowService) {
+        super(payerPrivateKey, payerFlowAddress, reader, flowService);
     }
 
     public FlowService(Builder builder) {

@@ -1,4 +1,4 @@
-package dao.emeraldcity.flow.reader;
+package com.javaservice.flow.reader;
 
 
 import java.io.IOException;
@@ -92,10 +92,6 @@ public class ReusableBufferedReader extends Reader {
     public void close() throws IOException {
 
         this.source.close();
-
-/*        for (int i = 0; i < nChars; i++) {
-            buffer[i] = '\u0000';
-        }*/
     }
 
     public String readLine() throws IOException {

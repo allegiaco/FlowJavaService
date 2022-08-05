@@ -1,4 +1,4 @@
-package dao.emeraldcity.flow.model;
+package com.javaservice.flow.model;
 
 import com.nftco.flow.sdk.FlowAddress;
 import com.nftco.flow.sdk.crypto.Crypto;
@@ -46,6 +46,13 @@ public class User {
         this.userPrivateKey = userPrivateKey;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Override
     public boolean equals(Object o) {

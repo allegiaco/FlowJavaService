@@ -1,4 +1,4 @@
-package dao.emeraldcity.flow.handlers;
+package com.javaservice.flow.handlers;
 
 import com.nftco.flow.sdk.Flow;
 import com.nftco.flow.sdk.FlowAccessApi;

@@ -1,4 +1,4 @@
-package dao.emeraldcity.flow.builders;
+package com.javaservice.flow.builders;
 
 import com.nftco.flow.sdk.FlowAddress;
 import com.nftco.flow.sdk.FlowTransactionProposalKey;

@@ -1,19 +1,18 @@
-package dao.emeraldcity.flow.abstraction;
+package com.javaservice.flow.abstraction;
 
 import com.google.protobuf.ByteString;
 import com.nftco.flow.sdk.*;
 import com.nftco.flow.sdk.crypto.Crypto;
 import com.nftco.flow.sdk.crypto.PrivateKey;
-import dao.emeraldcity.flow.builders.FlowTransactionBuilder;
-import dao.emeraldcity.flow.builders.ProposalKeyBuilder;
-import dao.emeraldcity.flow.exceptions.ImportsException;
-import dao.emeraldcity.flow.exceptions.TransactionException;
-import dao.emeraldcity.flow.handlers.FlowServiceUtilsHandler;
-import dao.emeraldcity.flow.model.FlowTransactionObject;
-import dao.emeraldcity.flow.model.User;
-import dao.emeraldcity.flow.model.enums.NetType;
-import dao.emeraldcity.flow.reader.ReusableBufferedReader;
-import dao.emeraldcity.flow.utils.FlowServiceUtils;
+import com.javaservice.flow.builders.FlowTransactionBuilder;
+import com.javaservice.flow.builders.ProposalKeyBuilder;
+import com.javaservice.flow.exceptions.ImportsException;
+import com.javaservice.flow.exceptions.TransactionException;
+import com.javaservice.flow.handlers.FlowServiceUtilsHandler;
+import com.javaservice.flow.model.FlowTransactionObject;
+import com.javaservice.flow.model.User;
+import com.javaservice.flow.model.enums.NetType;
+import com.javaservice.flow.reader.ReusableBufferedReader;
 
 import java.io.*;
 import java.util.*;
@@ -21,13 +20,19 @@ import java.util.stream.Collectors;
 
 public abstract class FlowServiceAbstract {
 
-    protected FlowServiceUtils flowServiceUtils;
+    protected FlowServiceUtilsAbstract flowServiceUtils;
     protected FlowTransactionObject flowTransactionObject;
     protected List<User> users = new ArrayList<>();
     protected ReusableBufferedReader reusableBufferedReader;
 
     public FlowServiceAbstract(String payerPrivateKey, String payerFlowAddress, ReusableBufferedReader rbr, NetType netType) {
         this.flowServiceUtils = FlowServiceUtilsHandler.getFlowServiceUtils(netType);
+        this.reusableBufferedReader = rbr;
+        users.add(new User(payerFlowAddress, payerPrivateKey));
+    }
+
+    public FlowServiceAbstract(String payerPrivateKey, String payerFlowAddress, ReusableBufferedReader rbr, FlowServiceUtilsAbstract flowService) {
+        this.flowServiceUtils = flowService;
         this.reusableBufferedReader = rbr;
         users.add(new User(payerFlowAddress, payerPrivateKey));
     }
@@ -246,7 +251,6 @@ public abstract class FlowServiceAbstract {
                 }
 
                 // CHANGE THE VALUES OF THE IMPORT
-
                 imports = imports.stream().map(i -> {
                     for (Map.Entry<String, String> change : scriptChanges.entrySet()) {
                         if (i.contains(change.getKey())) {

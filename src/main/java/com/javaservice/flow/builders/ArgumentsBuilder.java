@@ -1,9 +1,10 @@
-package dao.emeraldcity.flow.builders;
+package com.javaservice.flow.builders;
 
+import com.javaservice.flow.exceptions.ArgumentNotFoundException;
+import com.javaservice.flow.exceptions.NotANumberFieldClassException;
 import com.nftco.flow.sdk.FlowArgument;
 import com.nftco.flow.sdk.cadence.*;
-import dao.emeraldcity.flow.exceptions.ArgumentNotFoundException;
-import dao.emeraldcity.flow.exceptions.NotANumberFieldClassException;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
