@@ -1,4 +1,4 @@
-package com.github.allegiaco.flowjavaservice.abstraction;
+package io.github.allegiaco.flowjavaservice.abstraction;
 
 import com.nftco.flow.sdk.*;
 

@@ -1,4 +1,4 @@
-package com.github.allegiaco.flowjavaservice.model;
+package io.github.allegiaco.flowjavaservice.model;
 
 import com.nftco.flow.sdk.FlowAddress;
 import com.nftco.flow.sdk.crypto.Crypto;

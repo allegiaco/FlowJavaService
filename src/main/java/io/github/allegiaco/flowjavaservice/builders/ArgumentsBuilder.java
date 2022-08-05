@@ -1,7 +1,7 @@
-package com.github.allegiaco.flowjavaservice.builders;
+package io.github.allegiaco.flowjavaservice.builders;
 
-import com.github.allegiaco.flowjavaservice.exceptions.ArgumentNotFoundException;
-import com.github.allegiaco.flowjavaservice.exceptions.NotANumberFieldClassException;
+import io.github.allegiaco.flowjavaservice.exceptions.ArgumentNotFoundException;
+import io.github.allegiaco.flowjavaservice.exceptions.NotANumberFieldClassException;
 import com.nftco.flow.sdk.FlowArgument;
 import com.nftco.flow.sdk.cadence.*;
 

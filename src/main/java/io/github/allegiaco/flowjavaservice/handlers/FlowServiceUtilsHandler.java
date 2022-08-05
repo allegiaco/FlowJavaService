@@ -1,7 +1,7 @@
-package com.github.allegiaco.flowjavaservice.handlers;
+package io.github.allegiaco.flowjavaservice.handlers;
 
-import com.github.allegiaco.flowjavaservice.utils.FlowServiceUtils;
-import com.github.allegiaco.flowjavaservice.model.enums.NetType;
+import io.github.allegiaco.flowjavaservice.utils.FlowServiceUtils;
+import io.github.allegiaco.flowjavaservice.model.enums.NetType;
 
 public class FlowServiceUtilsHandler {
 

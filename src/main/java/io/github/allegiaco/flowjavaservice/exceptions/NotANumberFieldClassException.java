@@ -1,4 +1,4 @@
-package com.github.allegiaco.flowjavaservice.exceptions;
+package io.github.allegiaco.flowjavaservice.exceptions;
 
 public class NotANumberFieldClassException extends Exception{
 

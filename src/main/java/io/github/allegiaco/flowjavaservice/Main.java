@@ -1,17 +1,17 @@
-package com.github.allegiaco.flowjavaservice;
+package io.github.allegiaco.flowjavaservice;
 
 import com.nftco.flow.sdk.FlowAddress;
 import com.nftco.flow.sdk.FlowId;
 import com.nftco.flow.sdk.cadence.Field;
-import com.github.allegiaco.flowjavaservice.builders.ArgumentsBuilder;
-import com.github.allegiaco.flowjavaservice.exceptions.ArgumentNotFoundException;
-import com.github.allegiaco.flowjavaservice.exceptions.TransactionException;
-import com.github.allegiaco.flowjavaservice.handlers.BlockchainConnectionHandler;
-import com.github.allegiaco.flowjavaservice.implementation.FlowService;
-import com.github.allegiaco.flowjavaservice.model.User;
-import com.github.allegiaco.flowjavaservice.model.enums.NetType;
-import com.github.allegiaco.flowjavaservice.reader.ReusableBufferedReader;
-import com.github.allegiaco.flowjavaservice.utils.FlowServiceUtils;
+import io.github.allegiaco.flowjavaservice.builders.ArgumentsBuilder;
+import io.github.allegiaco.flowjavaservice.exceptions.ArgumentNotFoundException;
+import io.github.allegiaco.flowjavaservice.exceptions.TransactionException;
+import io.github.allegiaco.flowjavaservice.handlers.BlockchainConnectionHandler;
+import io.github.allegiaco.flowjavaservice.implementation.FlowService;
+import io.github.allegiaco.flowjavaservice.model.User;
+import io.github.allegiaco.flowjavaservice.model.enums.NetType;
+import io.github.allegiaco.flowjavaservice.reader.ReusableBufferedReader;
+import io.github.allegiaco.flowjavaservice.utils.FlowServiceUtils;
 
 import java.util.HashMap;
 import java.util.List;

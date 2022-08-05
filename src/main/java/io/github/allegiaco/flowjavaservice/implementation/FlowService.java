@@ -1,18 +1,18 @@
-package com.github.allegiaco.flowjavaservice.implementation;
+package io.github.allegiaco.flowjavaservice.implementation;
 
-import com.github.allegiaco.flowjavaservice.abstraction.FlowServiceAbstract;
-import com.github.allegiaco.flowjavaservice.abstraction.FlowServiceUtilsAbstract;
-import com.github.allegiaco.flowjavaservice.builders.FlowTransactionBuilder;
-import com.github.allegiaco.flowjavaservice.builders.ProposalKeyBuilder;
-import com.github.allegiaco.flowjavaservice.model.User;
-import com.github.allegiaco.flowjavaservice.model.enums.NetType;
-import com.github.allegiaco.flowjavaservice.reader.ReusableBufferedReader;
+import io.github.allegiaco.flowjavaservice.abstraction.FlowServiceAbstract;
+import io.github.allegiaco.flowjavaservice.abstraction.FlowServiceUtilsAbstract;
+import io.github.allegiaco.flowjavaservice.builders.FlowTransactionBuilder;
+import io.github.allegiaco.flowjavaservice.builders.ProposalKeyBuilder;
+import io.github.allegiaco.flowjavaservice.model.User;
+import io.github.allegiaco.flowjavaservice.model.enums.NetType;
+import io.github.allegiaco.flowjavaservice.reader.ReusableBufferedReader;
 import com.google.protobuf.ByteString;
 import com.nftco.flow.sdk.*;
 import com.nftco.flow.sdk.crypto.Crypto;
 import com.nftco.flow.sdk.crypto.PrivateKey;
-import com.github.allegiaco.flowjavaservice.exceptions.ImportsException;
-import com.github.allegiaco.flowjavaservice.exceptions.TransactionException;
+import io.github.allegiaco.flowjavaservice.exceptions.ImportsException;
+import io.github.allegiaco.flowjavaservice.exceptions.TransactionException;
 
 import java.math.BigDecimal;
 import java.util.*;

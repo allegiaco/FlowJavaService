@@ -1,4 +1,4 @@
-package com.github.allegiaco.flowjavaservice.builders;
+package io.github.allegiaco.flowjavaservice.builders;
 
 import com.nftco.flow.sdk.*;
 
